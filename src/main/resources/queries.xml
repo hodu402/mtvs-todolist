@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<queries>
+    <query id="getAllUsers">
+        SELECT
+        *
+        FROM users
+    </query>
+
+    <query id="getUserByEmail">
+        SELECT
+        *
+        FROM users
+        WHERE email = ?
+    </query>
+
+    <query id="addUser">
+        INSERT INTO users (user_name, email, pass, remove_date )
+        VALUES (?, ?, ?, ?)
+    </query>
+
+    <query id="updateUser">
+        UPDATE users SET username = ?, email = ?, password_hash = ?, role_id = ? WHERE user_id = ?
+    </query>
+
+    <query id="addCategory">
+        INSERT INTO category (category_name, user_id, remove_date)
+        VALUES (?, (SELECT user_id FROM users WHERE email = ?), null);
+    </query>
+
+    <query id="getAllCategorys">
+        SELECT c.*
+        FROM category c
+        JOIN users u ON c.user_id = u.user_id
+        WHERE u.email = ?
+        AND c.is_delete = 0
+    </query>
+
+    <query id="deleteCategory">
+        UPDATE category c
+        JOIN users u ON c.user_id = u.user_id
+        SET c.is_delete = 1, c.remove_date = NOW()
+        WHERE u.email = ? AND c.category_name = ?;
+    </query>
+
+    <query id="getTodoList">
+        SELECT l.*
+        FROM users u
+        JOIN category c ON u.user_id = c.user_id
+        JOIN list l ON c.category_id = l.category_id
+        WHERE u.email = ?
+        AND c.category_name = ?
+        AND l.is_delete = 0;
+    </query>
+
+    <query id="addTodoList">
+        INSERT INTO list (title, update_date, remove_date,category_id)
+        SELECT ?, ?, ?, c.category_id
+        FROM users u
+        JOIN category c ON u.user_id = c.user_id
+        WHERE u.email = ? AND c.category_name = ? AND c.is_delete = 0;
+    </query>
+
+    <query id="deleteList">
+        UPDATE list l
+        JOIN category c ON l.category_id = c.category_id
+        JOIN users u ON u.user_id = c.user_id
+        SET l.is_delete = 1, l.remove_date = NOW()
+        WHERE u.email = ? AND c.category_name = ? AND l.title = ?;
+    </query>
+
+    <query id="checkList">
+        UPDATE list l
+        JOIN category c ON l.category_id = c.category_id
+        JOIN users u ON u.user_id = c.user_id
+        SET l.is_completed = 1, l.update_date = NOW()
+        WHERE u.email = ? AND c.category_name = ? AND l.title = ?;
+    </query>
+
+</queries>

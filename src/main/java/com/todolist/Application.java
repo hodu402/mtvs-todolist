@@ -13,6 +13,7 @@ public class Application {
     public static void main(String[] args) throws SQLException {
         Connection connection = JDBCConnection.getConnection();
         Scanner scanner = new Scanner(System.in);
+        UserView userView = new UserView(connection);
 
         while (true) {
             System.out.println("----- TODO LIST ✏️ -----");
@@ -25,8 +26,8 @@ public class Application {
             scanner.nextLine(); // 개행 문자 처리
 
             switch (choice) {
-                // case 1
-                case 2 -> startUserManagement(connection);
+                case 1 -> userView.userLogin();
+                case 2 -> userView.registerUser();
                 case 0 -> {
                     connection.close();
                     System.out.println(" 프로그램을 종료합니다.😔");
@@ -38,10 +39,7 @@ public class Application {
 
     }
 
-    private static void startUserManagement(Connection connection) {
-        UserView userView = new UserView(connection);
-        userView.registerUser();
-    };
+
 
 
 }
