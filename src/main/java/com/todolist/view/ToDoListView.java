@@ -63,7 +63,7 @@ public class ToDoListView {
                     }
                     else { System.out.println("🟪 "+todoList.getTitle());}
                 });
-                System.out.println("체크할 항목을 선택해주세요 ☑️");
+                System.out.println("체크/체크해제 할 항목을 선택해주세요 ☑️");
                 String choiceCheck = scanner.nextLine();
                 // 삭제하거나 수정,체크하는 로직 추가!
                 checkList(userId,categoryName,choiceCheck);
@@ -121,12 +121,12 @@ public class ToDoListView {
             //Service에서 처리
             boolean success = listService.checkList(userId,categoryName,checkList);
             if (success) {
-                System.out.println("리스트가 체크되었습니다☑️");
+                System.out.println("리스트 체크여부를 수정했습니다☑️");
             } else {
-                System.out.println("리스트 체크에 실패하였습니다.😭");
+                System.out.println("리스트 체크/체크해제에 실패하였습니다.😭");
             }
         } catch (SQLException e) {
-            System.out.println("리스트 체크 중 오류가 발생했습니다.🫥");
+            System.out.println("리스트 체크 수정 중 오류가 발생했습니다.🫥");
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }

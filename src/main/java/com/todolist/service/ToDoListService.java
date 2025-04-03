@@ -62,7 +62,7 @@ public class ToDoListService {
         //리스트의 모든항목을 불러와서 타이틀만 초이스와 비교
         //기존 리스트에 내가 삭제하려는 이름이 없으면
         if (todoLists.stream().noneMatch(toDoList -> toDoList.getTitle().contains(choiceList))) {
-            throw new IllegalArgumentException("체크할 리스트를 잘못 입력했습니다");
+            throw new IllegalArgumentException("삭제할 리스트를 잘못 입력했습니다");
         }
 
         return toDoListDao.deleteList(userId,categoryName,choiceList);

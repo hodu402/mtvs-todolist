@@ -23,9 +23,11 @@ public class ToDoListDao {
 
         String query = QueryUtil.getQuery("getTodoList"); // XML에서 쿼리 로드
         List<ToDoList> lists = new ArrayList<>();
+        // 파라미터가 있는 쿼리를 준비 prepareStatement
         try (PreparedStatement ps = connection.prepareStatement(query)){
              ps.setString(1, userId);
              ps.setString(2, categoryName);
+            // executeQuery()로 ps.set으로 셋팅한 쿼리 결과를 받아옴
              ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {

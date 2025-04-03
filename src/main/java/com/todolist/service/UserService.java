@@ -65,6 +65,4 @@ public class UserService {
         }
         return userDao.addUser(user);
     }
-
-
 }

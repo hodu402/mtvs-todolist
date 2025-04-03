@@ -72,7 +72,8 @@
         UPDATE list l
         JOIN category c ON l.category_id = c.category_id
         JOIN users u ON u.user_id = c.user_id
-        SET l.is_completed = 1, l.update_date = NOW()
+        SET l.is_completed = IF(l.is_completed = 1, 0, 1),
+        l.update_date = NOW()
         WHERE u.email = ? AND c.category_name = ? AND l.title = ?;
     </query>
 
