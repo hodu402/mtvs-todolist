@@ -56,7 +56,7 @@ public class ToDoListView {
                 // null이거나 비어있지 않은 리스트들을 관리
                 System.out.println("----- "+ categoryName + " Category -----");
                 System.out.println("----- ToDo List ✏️ -----");
-                //조회할때 체크여부에따라 도형 바뀌게!!!
+                //조회할때 체크여부에 따라 도형 바뀌게!!!
                 todoLists.forEach( todoList -> {
                     if(todoList.getIsCompleted() == 1){
                         System.out.println("✅ "+todoList.getTitle());
@@ -65,7 +65,7 @@ public class ToDoListView {
                 });
                 System.out.println("체크/체크해제 할 항목을 선택해주세요 ☑️");
                 String choiceCheck = scanner.nextLine();
-                // 삭제하거나 수정,체크하는 로직 추가!
+                // 체크하는 로직 추가!
                 checkList(userId,categoryName,choiceCheck);
 
             };
